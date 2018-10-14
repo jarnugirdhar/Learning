@@ -68,10 +68,30 @@ int FindHeight(BstNode* root) {
 	return max(FindHeight(root->left), FindHeight(root->right))+1;
 }
 
-void LevelOrder(BstNode* root) {
+void bfs(BstNode* root) {
 	if(root == NULL) return;
 	queue<BstNode*> Q;	// Define Queue to store addresses
-	
+	Q.push(root);
+	while(!Q.empty()) {
+		BstNode* current = Q.front();
+		cout << current->data << " ";
+		if(current->left != NULL) Q.push(current->left);
+		if(current->right != NULL) Q.push(current->right);
+		Q.pop(); // Removing the element at front
+	}
+}
+
+void dfs_preorder(BstNode* root) {
+	if(root == NULL) return;
+	cout << root->data << " ";
+	dfs_preorder(root->left);
+	dfs_preorder(root->right);
+}
+void dfs_sort(BstNode* root) {
+	if(root == NULL) return;
+	dfs_sort(root->left);
+	cout << root-> data << " ";
+	dfs_sort(root->right);
 }
 int main() {
 	BstNode* root = NULL; // Creating an empty tree
@@ -82,5 +102,11 @@ int main() {
 	root = Insert(root, 8);
 	root = Insert(root, 12);
 	cout << FindHeight(root) << endl;
+	bfs(root);
+	cout << endl;
+	dfs_preorder(root);
+	cout << endl;
+	dfs_sort(root);
+	cout << endl;
 }
 
